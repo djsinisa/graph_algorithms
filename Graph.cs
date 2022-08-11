@@ -4,19 +4,19 @@ public class Graph<T>
     protected Dictionary<Node<T>, List<(double weight, Node<T> dest_node)>> adj_list;
     public bool is_biparite {
                                 get
-                                { 
-                                    Node<T>? any_node = adj_list.Keys.FirstOrDefault();
-                                    if(any_node != default)
                                     { 
-                                        return bfs(any_node).is_piparite;
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Graph is empty!");
-                                        return false;
+                                        Node<T>? any_node = adj_list.Keys.FirstOrDefault();
+                                        if(any_node != default)
+                                        { 
+                                            return bfs(any_node).is_piparite;
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Graph is empty!");
+                                            return false;
+                                        }
                                     }
                                 }
-                            }
     public Graph(Node<T> node)
     {
         adj_list = new Dictionary<Node<T>, List<(double weight, Node<T> dest_node)>>();
@@ -68,7 +68,7 @@ public class Graph<T>
             }
         }
     }
-    public void print()
+    public virtual void print()
     {
         if(!adj_list.Any())
             Console.WriteLine("Graph is empty!");
@@ -91,7 +91,7 @@ public class Graph<T>
         }
         else return false;
     }
-    private (Graph<T> bfs_tree, bool is_piparite) bfs(Node<T> start_node)
+    public (Tree<T> bfs_tree, bool is_piparite) bfs(Node<T> start_node)
     {
         //set starting node as discovered
         //set all other nodes as not discovered
@@ -104,7 +104,7 @@ public class Graph<T>
         layer0.Add(start_node);
         layers.Add(layer0);
         //Initialization of bfs tree
-        DirectedGraph<T> bfs_tree = new DirectedGraph<T>(start_node);
+        Tree<T> bfs_tree = new Tree<T>(start_node);
         int layer_counter = 0;
         while(layers[layer_counter].Any())
         {

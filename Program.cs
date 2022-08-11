@@ -24,9 +24,7 @@
         g.add_edge(node5, node6);
         g.add_edge(node7, node8);
         Console.WriteLine("------------------------");
-        List<Node<int>> nodes_to_remove = new List<Node<int>>() {node1, node2, node3, node4, node5, node6, node7, node8};
-        g.remove(nodes_to_remove);
-        g.print();
-        Console.WriteLine(g.is_biparite);
+        Tree<int> bfs_tree = g.bfs(node1).bfs_tree;
+        bfs_tree.print();
     }
 }
