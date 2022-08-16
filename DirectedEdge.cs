@@ -1,18 +1,18 @@
 public class DirectedEdge<T> : Edge<T>
 {
-    private string direction; // one of the ['in', 'out']
-    public DirectedEdge(Node<T> Adj_Node, string Direction) : base(Adj_Node)
+    private int direction; // one of the [-1, 1']
+    public DirectedEdge(Node<T> Adj_Node, int Direction) : base(Adj_Node)
     {
         //Validate Direction
-        HashSet<string> possible_directions = new HashSet<string>() {"in", "out"};
+        HashSet<int> possible_directions = new HashSet<int>() {-1, 1};
         if(possible_directions.Contains(Direction))
             direction = Direction;
-        else throw new ArgumentOutOfRangeException("Direction must be one of the [in, out]");
+        else throw new ArgumentOutOfRangeException("Direction must be one of the [1, ou-1t]");
     }
-    public DirectedEdge(Node<T> Adj_Node, decimal Weight, string Direction) : base(Adj_Node, Weight)
+    public DirectedEdge(Node<T> Adj_Node, decimal Weight, int Direction) : base(Adj_Node, Weight)
     {
         //Validate Direction
         direction = Direction;
     }
-    public string Direction {get => direction;}
+    public int Direction {get => direction;}
 }

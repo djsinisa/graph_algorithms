@@ -26,6 +26,20 @@ public class Tree<T> : Graph<T>
         }
         else Console.WriteLine("{0} is not in the Tree!", parent);
     }
+    public override void remove_node(Node<T> node)
+    {
+        base.remove_node(node);
+    }
+    public override void remove_edge(Node<T> node1, Node<T> node2)
+    {
+        base.remove_edge(node1, node2);
+        //To do: Remove parent/child ponters
+    }
+    public override void remove_edge(Node<T> node1, Node<T> node2, decimal weight)
+    {
+        base.remove_edge(node1, node2, weight);
+        //To do: Remove parent/child ponters
+    }
     public override void print()
     {
         //print root first

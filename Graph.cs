@@ -55,34 +55,47 @@ public class Graph<T>
         //check if edge already exist
         if(!check_connection(node1, node2))
             {
-            Edge<T> edge1 = new Edge<T>(node2, weight);
-            Edge<T> edge2 = new Edge<T>(node1, weight);
             add_node(node1);
-            adj_list[node1].Add(edge1);
+            adj_list[node1].Add(new Edge<T>(node2, weight));
             add_node(node2);
-            adj_list[node2].Add(edge2);
+            adj_list[node2].Add(new Edge<T>(node1, weight));
             }
     }
-    public void remove(List<Node<T>> nodes)
+    public virtual void remove_node(Node<T> node)
     {
-        //Removes list of nodes from adj_list
-        foreach(Node<T> node in nodes)
+        //Removes node from graph
+        if(adj_list.ContainsKey(node))
         {
-            if(adj_list.ContainsKey(node))
-            {
-                foreach(Edge<T> edge in adj_list[node])
-                {   
-                    //remove edge from all adjecent nodes to node
-                    adj_list[edge.Adj_Node].RemoveAll(edge => edge.Adj_Node == node);
-                }
-                //Remove node at the end
-                adj_list.Remove(node);
+            foreach(Edge<T> edge in adj_list[node])
+            {   
+                //remove edge from all adjecent nodes to node
+                adj_list[edge.Adj_Node].RemoveAll(edge => edge.Adj_Node == node);
             }
-            else
-            {
-                Console.WriteLine("{0} is not present in Graph.", node);
-            }
+            //Remove node at the end
+            adj_list.Remove(node);
         }
+        else
+        {
+            Console.WriteLine("{0} is not present in Graph.", node);
+        }
+    }
+    public virtual void remove_edge(Node<T> node1, Node<T> node2)
+    {
+        if(check_connection(node1, node2))
+        {
+            adj_list[node1].RemoveAll(edge => edge.Adj_Node == node2);
+            adj_list[node2].RemoveAll(edge => edge.Adj_Node == node1);
+        }
+        else Console.WriteLine("Edge does not exist.");
+    }
+        public virtual void remove_edge(Node<T> node1, Node<T> node2, decimal weight)
+    {
+        if(check_connection(node1, node2))
+        {
+            adj_list[node1].RemoveAll(edge => (edge.Adj_Node == node2 && edge.Weight == weight));
+            adj_list[node2].RemoveAll(edge => (edge.Adj_Node == node1 && edge.Weight == weight));
+        }
+        else Console.WriteLine("Edge does not exist.");
     }
     public virtual void print()
     {
@@ -93,7 +106,7 @@ public class Graph<T>
             string list = "";
             foreach(Edge<T> edge in pair.Value)
             {
-                list += "(" + edge.Weight + ")" + edge.Adj_Node.Data  + " ";
+                list += "(w:" + edge.Weight + ", ID:" + edge.Adj_Node.Data  + ") ";
             }
             Console.WriteLine("{0} -> {1}", pair.Key.Data, list);
         }
@@ -106,6 +119,7 @@ public class Graph<T>
         }
         else return false;
     }
+    //To do: Implement method that returns weight for particular connection.
     public virtual (Tree<T>? bfs_tree, bool? is_piparite) bfs(Node<T> start_node)
     {
         if(start_node == default) return (default, default);

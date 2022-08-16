@@ -10,25 +10,31 @@ public class DirectedGraph<T> : Graph<T>
     {
         if(!check_connection(node1, node2))
         {
-            DirectedEdge<T> edge_out = new DirectedEdge<T>(node2, "out");
-            DirectedEdge<T> edge_in = new DirectedEdge<T>(node1, "in");
             add_node(node1);
             add_node(node2);
-            adj_list[node1].Add(edge_out);
-            adj_list[node2].Add(edge_in);
+            adj_list[node1].Add(new DirectedEdge<T>(node2, -1));
+            adj_list[node2].Add(new DirectedEdge<T>(node1, 1));
         }
     }
     public override void add_edge(Node<T> node1, Node<T> node2, decimal weight)
     {
         if(!check_connection(node1, node2))
         {
-            DirectedEdge<T> edge_out = new DirectedEdge<T>(node2, weight, "out");
-            DirectedEdge<T> edge_in = new DirectedEdge<T>(node1, weight, "in");
             add_node(node1);
             add_node(node2);
-            adj_list[node1].Add(edge_out);
-            adj_list[node2].Add(edge_in);
+            adj_list[node1].Add(new DirectedEdge<T>(node2, weight, -1));
+            adj_list[node2].Add(new DirectedEdge<T>(node1, weight, 1));
         }
+    }
+    public override void remove_edge(Node<T> node1, Node<T> node2)
+    {
+        if(check_connection(node1, node2))
+            adj_list[node1].RemoveAll(edge => edge.Adj_Node == node2);
+    }
+    public override void remove_edge(Node<T> node1, Node<T> node2, decimal weight)
+    {
+        if(check_connection(node1, node2))
+            adj_list[node1].RemoveAll(edge => (edge.Adj_Node == node2 && edge.Weight == weight));
     }
 
     public override void print()
@@ -40,7 +46,7 @@ public class DirectedGraph<T> : Graph<T>
             string list = "";
             foreach(DirectedEdge<T> edge in pair.Value)
             {
-                list += "(" + edge.Direction + ")" + "(" + edge.Weight + ")" + edge.Adj_Node.Data  + " ";
+                list += "(Dir:" + edge.Direction + ", " + "w:" + edge.Weight + " ID:" + edge.Adj_Node.Data  + ") ";
             }
             Console.WriteLine("{0} -> {1}", pair.Key.Data, list);
         }
@@ -78,7 +84,7 @@ public class DirectedGraph<T> : Graph<T>
                 //consider each edge incident to node which goes out of node
                 foreach(DirectedEdge<T> incident_edge in this.adj_list[node])
                 {
-                    if(discovery_dict[incident_edge.Adj_Node].discovered == false && incident_edge.Direction == "out")
+                    if(discovery_dict[incident_edge.Adj_Node].discovered == false && incident_edge.Direction == -1)
                     {
                         int new_color = 1 - discovery_dict[node].color;
                         discovery_dict[incident_edge.Adj_Node] = (true, new_color);
