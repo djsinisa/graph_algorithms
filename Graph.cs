@@ -106,7 +106,7 @@ public class Graph<T>
         }
         else return false;
     }
-    private (Tree<T>? bfs_tree, bool? is_piparite) bfs(Node<T> start_node)
+    public virtual (Tree<T>? bfs_tree, bool? is_piparite) bfs(Node<T> start_node)
     {
         if(start_node == default) return (default, default);
         //set starting node as discovered
@@ -169,7 +169,7 @@ public class Graph<T>
             }
         }
     } 
-    private Dictionary<Node<T>, (bool, int)> undiscover_nodes(Node<T> start_node)
+    protected Dictionary<Node<T>, (bool, int)> undiscover_nodes(Node<T> start_node)
     {
         //Set all nodes other than start_node to undiscovered/unexplored for bfs/dfs
         Dictionary<Node<T>, (bool discovered, int color)> discovery_dict = new Dictionary<Node<T>, (bool discovered, int color)>();

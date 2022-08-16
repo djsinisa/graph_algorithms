@@ -1,3 +1,4 @@
+
 public class DirectedGraph<T> : Graph<T>
 {
     public DirectedGraph(Node<T> node) : base(node) {}
@@ -52,5 +53,49 @@ public class DirectedGraph<T> : Graph<T>
             return adj_list[node1].Contains(new Edge<T>(node2));
         }
         else return false;
+    }
+    public override (Tree<T>? bfs_tree, bool? is_piparite) bfs(Node<T> start_node)
+    {
+        if(start_node == default) return (default, default);
+        //set starting node as discovered
+        //set all other nodes as not discovered
+        Dictionary<Node<T>, (bool discovered, int color)> discovery_dict = undiscover_nodes(start_node);
+        // list of layers
+        List<List<Node<T>>> layers = new List<List<Node<T>>>();
+        // starting layer consisting of start_node only
+        List<Node<T>> layer0 = new List<Node<T>>(); 
+        bool? biparite = true;
+        layer0.Add(start_node);
+        layers.Add(layer0);
+        //Initialization of bfs tree
+        Tree<T> bfs_tree = new Tree<T>(start_node);
+        int layer_counter = 0;
+        while(layers[layer_counter].Any())
+        {
+            List<Node<T>> current_list = new List<Node<T>>();
+            foreach(Node<T> node in layers[layer_counter])
+            {
+                //consider each edge incident to node which goes out of node
+                foreach(DirectedEdge<T> incident_edge in this.adj_list[node])
+                {
+                    if(discovery_dict[incident_edge.Adj_Node].discovered == false && incident_edge.Direction == "out")
+                    {
+                        int new_color = 1 - discovery_dict[node].color;
+                        discovery_dict[incident_edge.Adj_Node] = (true, new_color);
+                        current_list.Add(incident_edge.Adj_Node);
+                        bfs_tree.add_edge(node, incident_edge.Adj_Node);
+                    }
+                    else
+                    {
+                        // if two adjecent nodes in graph have same color, graph is not biparite
+                        if(discovery_dict[incident_edge.Adj_Node].color == discovery_dict[node].color)
+                            biparite = false;
+                    }
+                }
+            }
+            layers.Add(current_list);
+            layer_counter ++;
+        }
+            return (bfs_tree, biparite);
     }
 } 
