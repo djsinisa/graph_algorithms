@@ -1,7 +1,6 @@
 public class Graph<T>
 {
-    //adj_list : node -> (weight1, dest_node1), (weight2, dest_node2), ...
-    //protected Dictionary<Node<T>, List<(double weight, Node<T> dest_node)>> adj_list;
+    //adj_list : node -> Edge1, Edge2, ...
     protected Dictionary<Node<T>, List<Edge<T>>> adj_list;
     public bool? Is_Biparite {
                                 get
