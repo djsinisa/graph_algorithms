@@ -5,15 +5,15 @@ public class Tree<T> : Graph<T>
     public Tree(Node<T> root_node) : base(root_node) 
     {
         root = root_node;
-        root.Parent = null;
+        root.Parent = default;
         root.Children = new List<Node<T>>();
     }
-    public override void add_edge(Node<T> parent, Node<T> child, double weight = 0)
+    public override void add_edge(Node<T> parent, Node<T> child)
     {
         if(adj_list.ContainsKey(parent))
         {
-            base.add_edge(parent, child, weight);
-            if(parent.Children != null)
+            base.add_edge(parent, child);
+            if(parent.Children != default)
             {
                 parent.Children.Add(child);
             }
@@ -22,20 +22,21 @@ public class Tree<T> : Graph<T>
                 parent.Children = new List<Node<T>>();
                 parent.Children.Add(child);
             }
+
         }
         else Console.WriteLine("{0} is not in the Tree!", parent);
     }
     public override void print()
     {
         //print root first
-        if(!(Root.Children == null))
+        if(!(Root.Children == default))
         {
            Console.WriteLine("{0} -> {1}", root.Data, take_data_from_nodes_to_print(Root.Children));
         }
-        foreach(KeyValuePair<Node<T>, List<(double weight, Node<T> dest_node)>> pair in adj_list)
+        foreach(KeyValuePair<Node<T>, List<Edge<T>>> pair in adj_list)
         {
             if(pair.Key == Root) continue;
-            if(!(pair.Key.Children == null))
+            if(!(pair.Key.Children == default))
             {
                 Console.WriteLine("{0} -> {1}", pair.Key.Data, take_data_from_nodes_to_print(pair.Key.Children));
             }

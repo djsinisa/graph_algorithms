@@ -9,12 +9,12 @@ public class Node<T>
     }
     public Node<T>? Parent 
     {   
-        get {return parent;} 
-        set {parent = value;}
+        get => parent; 
+        set => parent = value; // For the root parent can bee null
     }
     public List<Node<T>>? Children
     {
-        get {return children;}
-        set {children = value;}
+        get => children;
+        set => children = value; // For the leaf nodes, children is null
     }
 }
