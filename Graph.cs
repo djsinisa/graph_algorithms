@@ -42,12 +42,10 @@ public class Graph<T>
         //check if edge already exist
         if(!check_connection(node1, node2))
             {
-            Edge<T> edge1 = new Edge<T>(node2);
-            Edge<T> edge2 = new Edge<T>(node1);
             add_node(node1);
-            adj_list[node1].Add(edge1);
             add_node(node2);
-            adj_list[node2].Add(edge2);
+            adj_list[node1].Add(new Edge<T>(node2));
+            adj_list[node2].Add(new Edge<T>(node1));
             }
     }
     public virtual void add_edge(Node<T> node1, Node<T> node2, decimal weight)
@@ -56,8 +54,8 @@ public class Graph<T>
         if(!check_connection(node1, node2))
             {
             add_node(node1);
-            adj_list[node1].Add(new Edge<T>(node2, weight));
             add_node(node2);
+            adj_list[node1].Add(new Edge<T>(node2, weight));
             adj_list[node2].Add(new Edge<T>(node1, weight));
             }
     }
