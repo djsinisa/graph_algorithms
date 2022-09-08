@@ -1,0 +1,12 @@
+C:\Sinisa\Projects\CSTutorial\Graphs\GraphLib\obj\Debug\net6.0\GraphLib.csproj.AssemblyReference.cache
+C:\Sinisa\Projects\CSTutorial\Graphs\GraphLib\obj\Debug\net6.0\GraphLib.GeneratedMSBuildEditorConfig.editorconfig
+C:\Sinisa\Projects\CSTutorial\Graphs\GraphLib\obj\Debug\net6.0\GraphLib.AssemblyInfoInputs.cache
+C:\Sinisa\Projects\CSTutorial\Graphs\GraphLib\obj\Debug\net6.0\GraphLib.AssemblyInfo.cs
+C:\Sinisa\Projects\CSTutorial\Graphs\GraphLib\obj\Debug\net6.0\GraphLib.csproj.CoreCompileInputs.cache
+C:\Sinisa\Projects\CSTutorial\Graphs\GraphLib\bin\Debug\net6.0\GraphLib.deps.json
+C:\Sinisa\Projects\CSTutorial\Graphs\GraphLib\bin\Debug\net6.0\GraphLib.dll
+C:\Sinisa\Projects\CSTutorial\Graphs\GraphLib\bin\Debug\net6.0\GraphLib.pdb
+C:\Sinisa\Projects\CSTutorial\Graphs\GraphLib\obj\Debug\net6.0\GraphLib.dll
+C:\Sinisa\Projects\CSTutorial\Graphs\GraphLib\obj\Debug\net6.0\refint\GraphLib.dll
+C:\Sinisa\Projects\CSTutorial\Graphs\GraphLib\obj\Debug\net6.0\GraphLib.pdb
+C:\Sinisa\Projects\CSTutorial\Graphs\GraphLib\obj\Debug\net6.0\ref\GraphLib.dll
